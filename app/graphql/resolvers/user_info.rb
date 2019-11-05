@@ -1,5 +1,5 @@
 module Resolvers
-  class PatientInfo < Resolvers::Base
+  class UserInfo < Resolvers::Base
     argument :user_id, ID, required: true
 
     type Types::UserType, null: false
