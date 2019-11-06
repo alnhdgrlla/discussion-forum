@@ -4,4 +4,5 @@ class Types::TopicType < Types::BaseObject
   field :content, String, null: false
   field :replies, [Types::ReplyType], null: false
   field :user, Types::UserType, null: false
+  field :favorite, [Types::FavoriteType], null: true
 end

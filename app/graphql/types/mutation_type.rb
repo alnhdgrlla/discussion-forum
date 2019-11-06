@@ -6,5 +6,7 @@ module Types
     field :create_reply, mutation: Mutations::CreateReply
     field :delete_topic, mutation: Mutations::DeleteTopic
     field :delete_reply, mutation: Mutations::DeleteReply
+    field :create_favorite, mutation: Mutations::CreateFavorite
+    field :delete_favorite, mutation: Mutations::DeleteFavorite
   end
 end
