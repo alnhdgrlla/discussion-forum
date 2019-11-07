@@ -6,5 +6,6 @@ module Types
     field :topic_info, resolver: Resolvers::TopicInfo
     field :user_info, resolver: Resolvers::UserInfo
     field :all_favorites, resolver: Resolvers::AllFavorites
+    field :current_user, resolver: Resolvers::CurrentUser
   end
 end

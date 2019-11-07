@@ -6,11 +6,16 @@ module Mutations
     type Types::ReplyType
 
     def resolve(content:, topic_id: )
-      Reply.create!(
-        content: content,
-        user_id: context[:current_user].id,
-        topic_id: Topic.find(topic_id).id
-      )
+      topic = Topic.find(topic_id)
+      if topic
+        Reply.create!(
+          content: content,
+          user_id: context[:current_user].id,
+          topic_id: topic.id
+        )
+      else
+        return GraphQL::ExecutionError.new("the topic does not exist") 
+      end
     end
   end
 end
