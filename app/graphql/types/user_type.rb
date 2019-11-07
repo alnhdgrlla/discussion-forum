@@ -5,4 +5,6 @@ class Types::UserType < Types::BaseObject
   field :favorite, [Types::FavoriteType], null: true
   field :topic, [Types::TopicType], null: true
   field :reply, [Types::ReplyType], null: true
+  field :followees, [Types::UserType], null: true
+  field :followers, [Types::UserType], null: true
 end

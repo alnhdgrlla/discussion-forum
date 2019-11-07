@@ -8,5 +8,8 @@ module Types
     field :delete_reply, mutation: Mutations::DeleteReply
     field :create_favorite, mutation: Mutations::CreateFavorite
     field :delete_favorite, mutation: Mutations::DeleteFavorite
+    field :all_favorites, resolver: Resolvers::AllFavorites
+    field :create_follow, mutation: Mutations::CreateFollow
+    field :delete_follow, mutation: Mutations::DeleteFollow
   end
 end

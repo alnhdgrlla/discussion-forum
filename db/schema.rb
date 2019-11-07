@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_031906) do
+ActiveRecord::Schema.define(version: 2019_11_06_090507) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2019_11_06_031906) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["topic_id"], name: "index_favorites_on_topic_id"
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "followee_id"
+    t.integer "follower_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["followee_id"], name: "index_relationships_on_followee_id"
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "replies", force: :cascade do |t|
@@ -51,6 +60,8 @@ ActiveRecord::Schema.define(version: 2019_11_06_031906) do
 
   add_foreign_key "favorites", "topics"
   add_foreign_key "favorites", "users"
+  add_foreign_key "relationships", "users", column: "followee_id"
+  add_foreign_key "relationships", "users", column: "follower_id"
   add_foreign_key "replies", "topics"
   add_foreign_key "replies", "users"
   add_foreign_key "topics", "users"
