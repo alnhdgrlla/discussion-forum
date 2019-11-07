@@ -20,9 +20,9 @@ class User < ApplicationRecord
     self.followees.include?(user)
   end
 
-  def follow(user)
-    active_relationships.create!(followee_id: user.id) if !self.following?(user) && self != user
-  end
+  # def follow(user)
+  #   active_relationships.create!(followee_id: user.id) if !self.following?(user) && self != user
+  # end
   
   def unfollow(user)
     active_relationships.find_by(followee_id: user).destroy unless self.following?(user) && self == user
