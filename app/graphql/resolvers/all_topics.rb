@@ -62,6 +62,7 @@ module Resolvers
 
     def resolve(user_id: nil, limit: 10, offset: 0 )
       c_user = context[:current_user]
+      return GraphQL::ExecutionError.new("You have to log in to favorite") unless c_user.present?
       
       if user_id
         topic = Topic.where(user_id: user_id)
