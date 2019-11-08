@@ -29,7 +29,7 @@ class User < ApplicationRecord
   end
   
   def feed
-    Topic.where(user_id: id).or(Topic.where(user_id: active_relationships.select(:followee_id)))
+    Topic.where(user_id: id).or(Topic.where(user_id: active_relationships.select(:followee_id))).offset.take(limit)
   end
 
   def total_topic
