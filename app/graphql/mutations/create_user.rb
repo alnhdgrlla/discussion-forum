@@ -1,3 +1,29 @@
+# module Mutations
+#   class CreateUser < BaseMutation
+#     # often we will need input types for specific mutation
+#     # in those cases we can define those input types in the mutation class itself
+#     class AuthProviderSignupData < Types::BaseInputObject
+#       argument :email, Types::AuthProviderEmailInput, required: false
+#     end
+
+#     argument :name, String, required: true
+#     argument :auth_provider, AuthProviderSignupData, required: false
+
+#     type Types::UserType
+
+#     def resolve(name: nil, auth_provider: nil)
+#       user =  User.create!(
+#         name: name,
+#         email: auth_provider&.[](:email)&.[](:email),
+#         password: auth_provider&.[](:email)&.[](:password)
+#       )
+#       return GraphQL::ExecutionError.new("Creation did not finish successfuly") if !user
+#       user
+#     end
+#   end
+# end
+
+
 module Mutations
   class CreateUser < BaseMutation
     # often we will need input types for specific mutation
@@ -7,16 +33,22 @@ module Mutations
     end
 
     argument :name, String, required: true
-    argument :auth_provider, AuthProviderSignupData, required: false
+    # argument :auth_provider, AuthProviderSignupData, required: false
+    argument :email, String, required: true
+    argument :password, String, required: true
 
     type Types::UserType
 
-    def resolve(name: nil, auth_provider: nil)
-      User.create!(
+    def resolve(name: nil, email: nil, password: nil)
+      return GraphQL::ExecutionError.new("This name has already been taken") if User.find_by(name:name)
+      return GraphQL::ExecutionError.new("This email has already been taken") if User.find_by(email:email)
+      user =  User.create!(
         name: name,
-        email: auth_provider&.[](:email)&.[](:email),
-        password: auth_provider&.[](:email)&.[](:password)
+        email: email,
+        password: password
       )
+      return GraphQL::ExecutionError.new("Creation did not finish successfuly") if !user
+      user
     end
   end
 end
