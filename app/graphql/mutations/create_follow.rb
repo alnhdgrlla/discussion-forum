@@ -13,12 +13,15 @@ module Mutations
       follower = context[:current_user]
       followee = User.find(followee_id) 
       
-      return GraphQL::ExecutionError.new("Forbidden action") if follower.following?(followee) || follower.id == followee.id 
-        follower.follow(followee)
+     if follower.followees.include?(followee) || follower.id == followee.id 
+      return GraphQL::ExecutionError.new("Forbidden action") 
+     else  
+      follower.active_relationships.create!(followee_id: followee_id)
         {
           follower: follower,
           followee: followee
         }
+      end
     end
   end
 end
