@@ -7,17 +7,13 @@ module Resolvers
     def resolve(topic_id:)
       c_user = context[:current_user]
       topic = Topic.find_by(id:topic_id)
-      poster = User.where(user_id: topic.user_id)
+      poster = User.find(topic.user_id)
       
-      if topic.nil?
-        return GraphQL::ExecutionError.new("This topic does not exist")
-      else
-        if !c_user.followees.include?(poster)
-          topic
-        else
-          return GraphQL::ExecutionError.new("You are not following this user")
-        end
-      end
+      return GraphQL::ExecutionError.new("This topic does not exist") if topic.nil?
+      return GraphQL::ExecutionError.new("You are not following this user") if !c_user.followees.include?(poster)
+      
+      topic
+    
     end
   end
 end
