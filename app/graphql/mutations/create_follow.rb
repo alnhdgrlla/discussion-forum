@@ -12,7 +12,7 @@ module Mutations
 
       follower = context[:current_user]
       followee = User.find(followee_id) 
-      
+      # binding.pry
      if follower.followees.include?(followee) || follower.id == followee.id 
       return GraphQL::ExecutionError.new("Forbidden action") 
      else  
