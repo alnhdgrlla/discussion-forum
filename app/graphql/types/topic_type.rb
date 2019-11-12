@@ -5,4 +5,5 @@ class Types::TopicType < Types::BaseObject
   field :replies, [Types::ReplyType], null: false
   field :user, Types::UserType, null: false
   field :favorite, [Types::FavoriteType], null: true
+  field :claps, Types::ClapType, null: false
 end

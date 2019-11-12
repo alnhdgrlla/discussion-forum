@@ -11,5 +11,6 @@ module Types
     field :all_favorites, resolver: Resolvers::AllFavorites
     field :create_follow, mutation: Mutations::CreateFollow
     field :delete_follow, mutation: Mutations::DeleteFollow
+    field :give_claps, mutation: Mutations::GiveClaps
   end
 end

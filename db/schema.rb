@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_06_090507) do
+ActiveRecord::Schema.define(version: 2019_11_12_054846) do
+
+  create_table "claps", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "topic_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "count", default: 0
+    t.index ["topic_id"], name: "index_claps_on_topic_id"
+    t.index ["user_id"], name: "index_claps_on_user_id"
+  end
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -58,6 +68,8 @@ ActiveRecord::Schema.define(version: 2019_11_06_090507) do
     t.string "password_digest"
   end
 
+  add_foreign_key "claps", "topics"
+  add_foreign_key "claps", "users"
   add_foreign_key "favorites", "topics"
   add_foreign_key "favorites", "users"
   add_foreign_key "relationships", "users", column: "followee_id"
